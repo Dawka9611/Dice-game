@@ -1,5 +1,40 @@
+//shift+alt+b - start it with open-in-browser extension
+
+var roundScore, scores, activePlayer
+var diceDom = document.querySelector('.dice')
+
 initGame()
-var diceDom, roundScore, scores,activePlayer
+
+//togloom shiner ehluulehed beldeh
+function initGame() {
+    //toglogchin eeljig hadgalah huvisagch. 1-r toglogch 0, 2-r toglogch 1
+    activePlayer = 0
+
+    //toglogchin tsuglulsan onoog hadgalah huvisagch
+    scores = [0, 0]
+
+    //togloghchin 1 eeljind tsuglulsan onoog hadgalah huvisagch
+    roundScore = 0
+
+    //programm ehlehed beltgeh
+    document.getElementById('score-0').textContent = '0'
+    document.getElementById('score-1').textContent = '0'
+    document.getElementById('current-0').textContent = '0'
+    document.getElementById('current-1').textContent = '0'
+
+    document.getElementById('name-0').textContent ='Player-1'
+    document.getElementById('name-1').textContent ='Player-2'
+
+    document.querySelector(".player-0-panel").classList.remove("winner")
+    document.querySelector(".player-1-panel").classList.remove("winner")
+
+    document.querySelector(".player-0-panel").classList.remove("active")
+    document.querySelector(".player-1-panel").classList.remove("active")
+
+    document.querySelector(".player-0-panel").classList.add("active")
+
+    diceDom.style.display = 'none'
+}
 
 //shoo shideh
 document.querySelector('.btn-roll').addEventListener('click', () => {
@@ -39,10 +74,7 @@ document.querySelector('.btn-hold').addEventListener("click", function () {
 })
 
 //shine togloom ehluuleh
-document.querySelector(".btn-new").addEventListener("click", function () {
-
-})
-
+document.querySelector(".btn-new").addEventListener("click", initGame)
 
 function switchToNextPlayer() {
     //ene toglogchiin current onoog tegleh
@@ -58,21 +90,4 @@ function switchToNextPlayer() {
     diceDom.style.display = 'none'
 }
 
-function initGame() {
-    //toglogchin eeljig hadgalah huvisagch. 1-r toglogch 0, 2-r toglogch 1
-    activePlayer = 0
 
-    //toglogchin tsuglulsan onoog hadgalah huvisagch
-    scores = [0, 0]
-
-    //togloghchin 1 eeljind tsuglulsan onoog hadgalah huvisagch
-    roundScore = 0
-
-    //programm ehlehed beltgeh
-    document.getElementById('score-0').textContent = '0'
-    document.getElementById('score-1').textContent = '0'
-    document.getElementById('current-0').textContent = '0'
-    document.getElementById('current-1').textContent = '0'
-    diceDom = document.querySelector('.dice')
-diceDom.style.display = 'none'
-}
