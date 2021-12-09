@@ -3,10 +3,14 @@
 var roundScore, scores, activePlayer
 var diceDom = document.querySelector('.dice')
 
+//togloomintoloviig hadgalah var
+var isNewGame
+
 initGame()
 
 //togloom shiner ehluulehed beldeh
 function initGame() {
+    isNewGame = true
     //toglogchin eeljig hadgalah huvisagch. 1-r toglogch 0, 2-r toglogch 1
     activePlayer = 0
 
@@ -22,8 +26,8 @@ function initGame() {
     document.getElementById('current-0').textContent = '0'
     document.getElementById('current-1').textContent = '0'
 
-    document.getElementById('name-0').textContent ='Player-1'
-    document.getElementById('name-1').textContent ='Player-2'
+    document.getElementById('name-0').textContent = 'Player-1'
+    document.getElementById('name-1').textContent = 'Player-2'
 
     document.querySelector(".player-0-panel").classList.remove("winner")
     document.querySelector(".player-1-panel").classList.remove("winner")
@@ -38,38 +42,47 @@ function initGame() {
 
 //shoo shideh
 document.querySelector('.btn-roll').addEventListener('click', () => {
-    var diceNumber = Math.floor(Math.random() * 6) + 1
-    diceDom.style.display = 'block'
-    diceDom.src = 'dice-' + diceNumber + '.png'
+    if (isNewGame) {
+        var diceNumber = Math.floor(Math.random() * 6) + 1
+        diceDom.style.display = 'block'
+        diceDom.src = 'dice-' + diceNumber + '.png'
 
-    //toglogchiin eeljin  tog oorchilno
-    //buusan too 1-s ylgaatai bol 
+        //toglogchiin eeljin  tog oorchilno
+        //buusan too 1-s ylgaatai bol 
 
-    if (diceNumber !== 1) {
-        //1s yalgatai too busan uyd onoog nemegduulne
-        roundScore = roundScore + diceNumber
-        document.getElementById("current-" + activePlayer).textContent = roundScore
+        if (diceNumber !== 1) {
+            //1s yalgatai too busan uyd onoog nemegduulne
+            roundScore = roundScore + diceNumber
+            document.getElementById("current-" + activePlayer).textContent = roundScore
+        } else {
+            //toglogchin eelj solih
+            switchToNextPlayer()
+        }
     } else {
-        //toglogchin eelj solih
-        switchToNextPlayer()
+        alert("Тоглоом дууссан байна. Шинээр тоглоомыг эхлүүлнэ үү!")
     }
 })
 
 //hold tovchiig hiih
 document.querySelector('.btn-hold').addEventListener("click", function () {
-    //global onoog oorchloh
-    scores[activePlayer] = scores[activePlayer] + roundScore
-    document.getElementById("score-" + activePlayer).textContent = scores[activePlayer]
+    if (isNewGame) {
+        //global onoog oorchloh
+        scores[activePlayer] = scores[activePlayer] + roundScore
+        document.getElementById("score-" + activePlayer).textContent = scores[activePlayer]
 
-    //toglogchin onoo 100 hursen esehig shalgana
+        //toglogchin onoo 100 hursen esehig shalgana
 
-    if (scores[activePlayer] >= 10) {
-        document.getElementById('name-' + activePlayer).textContent = "WINNER!!!"
-        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
+        if (scores[activePlayer] >= 100) {
+            isNewGame = false
+            document.getElementById('name-' + activePlayer).textContent = "WINNER!!!"
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
+        } else {
+            //toglogchin eelj solih
+            switchToNextPlayer()
+        }
     } else {
-        //toglogchin eelj solih
-        switchToNextPlayer()
+        alert("Тоглоом дууссан байна. Шинээр тоглоомыг эхлүүлнэ үү!")
     }
 })
 
